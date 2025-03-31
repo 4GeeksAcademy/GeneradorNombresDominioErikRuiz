@@ -1,26 +1,29 @@
-const pronoun = ['the', 'our'];
-const adj = ['great', 'big'];
-const noun = ['jogger', 'racoon'];
-const extensions = ['.com', '.net', '.us', '.io', '.es'];
+const pronounList = ['the', 'our'];
+const adjectiveList = ['great', 'big'];
+const nounList = ['jogger', 'racoon'];
+const extensionList = ['.com', '.net', '.us', '.io', '.es'];
 
-function generarDominios() {
-  const lista = document.getElementById("dominios");
-  lista.innerHTML = "";
+document.getElementById("generate-button").addEventListener("click", generateDomains);
 
-  for (let p of pronoun) {
-    for (let a of adj) {
-      for (let n of noun) {
-        for (let ext of extensions) {
-          const dominio = p + a + n + ext;
-          const item = document.createElement("li");
-          item.textContent = dominio;
-          lista.appendChild(item);
+function generateDomains() {
+  const domainListElement = document.getElementById("domain-list");
+  domainListElement.innerHTML = "";
 
-          if (n.endsWith(ext.replace('.', ''))) {
-            const hack = p + a + n.replace(ext.replace('.', ''), '') + '.' + ext.replace('.', '');
+  for (let pronoun of pronounList) {
+    for (let adjective of adjectiveList) {
+      for (let noun of nounList) {
+        for (let extension of extensionList) {
+          const domain = pronoun + adjective + noun + extension;
+          const listItem = document.createElement("li");
+          listItem.textContent = domain;
+          domainListElement.appendChild(listItem);
+
+          const extText = extension.replace('.', '');
+          if (noun.endsWith(extText)) {
+            const hacked = pronoun + adjective + noun.replace(extText, '') + '.' + extText;
             const hackItem = document.createElement("li");
-            hackItem.textContent = "💡 " + hack;
-            lista.appendChild(hackItem);
+            hackItem.textContent = "💡 " + hacked;
+            domainListElement.appendChild(hackItem);
           }
         }
       }
